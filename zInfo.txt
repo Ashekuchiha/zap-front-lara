@@ -1,0 +1,58 @@
+Forms:
+1. Services:
+name,description,icon(type=image),is_featured(switch),
+2. Commission Setup
+Service(Select), amount, type(Percent/Flat)
+3. Service Providers/Vendor:
+name,service(select), specialization, experience,service locations(Service locations er ekta checkbox list hobe horizontally), certificate(file), profile_image, phone number, email, password(12345678 default),status
+4. Service Locations:
+Location Name(Ex: Ab Clinic, ABC Beauty Parlour, Abd Diagonstic etc.), addresss, lat-lng(map diba selection er jonno),
+5.  User:
+name,email,phone,address,profile,password(default 1245678)
+
+Forms:
+1. Services:
+name,description,icon(type=image),is_featured(switch),
+2. Commission Setup
+Service(Select), amount, type(Percent/Flat)
+3. Service Providers/Vendor:
+name,service(select), specialization, experience,service locations(Service locations er ekta checkbox list hobe horizontally), certificate(file), profile_image, phone number, email, password(12345678 default),status
+4. Service Locations:
+Location Name(Ex: Ab Clinic, ABC Beauty Parlour, Abd Diagonstic etc.), addresss, lat-lng(map diba selection er jonno),
+5.  User:
+name,email,phone,address,profile,password(default 1245678)
+
+
+menu:
+Home
+Services
+	All(Click korle list er page ta dekhaba, oitar top right corner e create)->Create
+	Drafts->Create
+
+Commission Setup
+
+Service Locations
+	All=>Create
+	Draft=>Create
+
+Bookings
+	All
+	Completed
+	On Going
+	Waiting
+	Canceled
+Transactions
+	All Transactions
+	Due Transactions
+	Paid Transactions	
+	Comission Transactions
+Providers/Vendors
+	All=>Create
+	Drafts=> Create
+	Holds=> Create
+	Banned
+Users
+	All=>Create
+	Drafts=>Create
+	Holds
+	Banned
