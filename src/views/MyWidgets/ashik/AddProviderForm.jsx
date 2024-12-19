@@ -17,16 +17,16 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import Spinner from 'src/views/spinner/Spinner';
 const validationSchema = Yup.object({
-    name: Yup.string().required('Name is required'),
-    email: Yup.string().email('Invalid email format').required('Email is required'),
+    // name: Yup.string().required('Name is required'),
+    // email: Yup.string().email('Invalid email format').required('Email is required'),
     phoneNumber: Yup.string()
-      .matches(/^[0-9]+$/, 'Phone Number must be only digits')
-      .required('Phone Number is required'),
+      .matches(/^[0-9]+$/, 'Phone Number must be only digits'),
+      // .required('Phone Number is required'),
       password: Yup.string()
       .min(8, 'Password must be at least 8 characters'),
     confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match'),
-    service: Yup.string().required('Service is required'),
-    specialized: Yup.string().required('Specialized field is required'),
+    // service: Yup.string().required('Service is required'),
+    // specialized: Yup.string().required('Specialized field is required'),
     experience: Yup.number()
       .integer('Experience must be a whole number')
       .positive('Experience must be a positive number')
@@ -86,7 +86,8 @@ export default function AddProviderForm() {
       )
     }
 
-  const basic = "https://fullzapmor-api.vercel.app";
+  // const basic = "https://fullzapmor-api.vercel.app";
+  const basic = "http://127.0.0.1:8000";
   const cbasic = "http://localhost:5000";
   const navigate = useNavigate();
   const [switchs, setswitchs] = useState(false); 
@@ -150,8 +151,8 @@ export default function AddProviderForm() {
           console.log(JSON.stringify(values))
           try {
             const url = id
-              ? `${basic}/api/services-providers/${id}`
-              : `${basic}/api/services-providers`;
+              ? `${basic}/api/servicesproviders/${id}`
+              : `${basic}/api/servicesproviders`;
             const method = id ? 'PUT' : 'POST';
 
               const response = await fetch(url, {
@@ -190,27 +191,27 @@ export default function AddProviderForm() {
   useEffect(() => {
     if (id) {
       setLoading(true); // Loading while fetching data
-      fetch(`${basic}/api/services-providers/${id}`)
+      fetch(`${basic}/api/servicesproviders/${id}`)
         .then((response) => response.json())
         .then((data) => {
           formik.setValues({
-            name: data.name || '',
-            email: data.email || '',
-            assistantName: data.assistantName || '',
-            assistantphoneNumber: data.assistantphoneNumber || '',
-            qualification: data.qualification || '',
-            phoneNumber: data.phoneNumber || '',
-            organizationMobile: data.organizationMobile || '',
-            service: data.service || '',
-            specialized: data.specialized || '',
-            experience: data.experience || '', // Expecting [latitude, longitude]
-            serviceOrganization: data.serviceOrganization || [],
-            status: data.status || '',
-            certificate: data.certificate || null,
-            profileImage: data.profileImage || null,
-            amount: data.amount || '',
-            type: data.type || '', // For file uploads, initialize as null
-            featured: data.featured || false,
+            name: data.data.name || '',
+            email: data.data.email || '',
+            assistantName: data.data.assistantName || '',
+            assistantphoneNumber: data.data.assistantphoneNumber || '',
+            qualification: data.data.qualification || '',
+            phoneNumber: data.data.phoneNumber || '',
+            organizationMobile: data.data.organizationMobile || '',
+            service: data.data.service || '',
+            specialized: data.data.specialized || '',
+            experience: data.data.experience || '', // Expecting [latitude, longitude]
+            serviceOrganization: data.data.serviceOrganization || [],
+            status: data.data.status || '',
+            certificate: data.data.certificate || null,
+            profileImage: data.data.profileImage || null,
+            amount: data.data.amount || '',
+            type: data.data.type || '', // For file uploads, initialize as null
+            featured: data.data.featured || false,
 
             });        
           setLoading(false);
@@ -227,7 +228,7 @@ export default function AddProviderForm() {
     // Fetch the service options from the API
     const fetchStateName = async () => {
         try {
-            const response = await axios.get(`${basic}/api/services/all`);
+            const response = await axios.get(`https://fullzapmor-api.vercel.app/api/services/all`);
             setServices(response.data); // Assuming the data is an array of service objects
         } catch (error) {
             console.error('Error fetching StateName:', error);
@@ -240,7 +241,7 @@ useEffect(() => {
   // Fetch the service options from the API
   const fetchStateName = async () => {
       try {
-          const response = await axios.get(`${basic}/api/service-organization/all`);
+          const response = await axios.get(`https://fullzapmor-api.vercel.app/api/service-organization/all`);
           setServicesOrganization(response.data); // Assuming the data is an array of service objects
       } catch (error) {
           console.error('Error fetching StateName:', error);

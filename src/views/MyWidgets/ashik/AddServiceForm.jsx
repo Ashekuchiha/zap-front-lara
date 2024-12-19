@@ -46,7 +46,7 @@ export default function AddServiceForm() {
       formData.append('name', values.name);
       formData.append('description', values.description);
       formData.append('icon', values.icon);
-      formData.append('featured', values.featured);
+      formData.append('featured', values.featured ? "1" : "0");
       formData.append('status', values.status);
       formData.append('amount', values.amount);
       formData.append('type', values.type);

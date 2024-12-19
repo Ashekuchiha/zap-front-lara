@@ -40,7 +40,7 @@ const ServicesLocationAll = () => (
         title="Services Organization list"
         columns={columns}
         // apiUrl="https://fullzapmor-api.vercel.app/api/service-organization"
-        apiUrl="http://127.0.0.1:8000/api/service-organizations"
+        apiUrl="http://127.0.0.1:8000/api/serviceorganizations"
         // apiUrl="http://localhost:5000/api/service-organization"
         enableSearch={true}
         enableSort={true}

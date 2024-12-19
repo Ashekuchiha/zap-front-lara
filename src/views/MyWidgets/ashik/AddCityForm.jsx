@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 
 // Validation schema using Yup
 const validationSchema = yup.object({
-    cityName: yup
+    CityName: yup
     .string()
     .min(2, 'Too Short!')
     .max(80, 'Too Long!')
@@ -36,7 +36,8 @@ const validationSchema = yup.object({
 });
 
 export default function AddCityForm() {
-  const basic = "https://fullzapmor-api.vercel.app";
+  // const basic = "https://fullzapmor-api.vercel.app";
+  const basic = "http://127.0.0.1:8000";
   const cbasic = "http://localhost:5000";
     const [StateNames, setStateNames] = useState([]);
 
@@ -47,7 +48,7 @@ export default function AddCityForm() {
   const formik = useFormik({
     initialValues: {
       StateName: '',
-      cityName:'',
+      CityName:'',
       pin:'',
       longitude: '',
       latitude:'',
@@ -69,7 +70,7 @@ export default function AddCityForm() {
           },
           body: JSON.stringify({
             StateName: values.StateName,
-            cityName:values.cityName,
+            CityName:values.CityName,
             pin:values.pin,
             latitude: values.latitude, // Assuming it's an array of [latitude, longitude]
             longitude: values.longitude,
@@ -112,11 +113,11 @@ export default function AddCityForm() {
         .then((response) => response.json())
         .then((data) => {console.log("fetchdata",data)
           formik.setValues({
-            StateName: data.StateName || '',
-            cityName:data.cityName || '',
-            pin:data.pin || '',
-            latitude: data.latitude || '',
-            longitude: data.longitude || '',
+            StateName: data.data.StateName || '',
+            CityName:data.data.CityName || '',
+            pin:data.data.pin || '',
+            latitude: data.data.latitude || '',
+            longitude: data.data.longitude || '',
           });
           setLoading(false);
         })
@@ -131,7 +132,7 @@ export default function AddCityForm() {
     // Fetch the service options from the API
     const fetchStateName = async () => {
         try {
-            const response = await axios.get(`${basic}/api/states/all`);
+            const response = await axios.get(`${basic}/api/states`);
             setStateNames(response.data.data.data); // Assuming the data is an array of service objects
             console.log(response)
         } catch (error) {
@@ -156,12 +157,12 @@ export default function AddCityForm() {
                 <CustomTextField
                 placeholder = 'Enter City Name'
                   fullWidth
-                  id="cityName"
-                  name="cityName"
-                  value={formik.values.cityName}
+                  id="CityName"
+                  name="CityName"
+                  value={formik.values.CityName}
                   onChange={formik.handleChange}
-                  error={formik.touched.cityName && Boolean(formik.errors.cityName)}
-                  helperText={formik.touched.cityName && formik.errors.cityName}
+                  error={formik.touched.CityName && Boolean(formik.errors.CityName)}
+                  helperText={formik.touched.CityName && formik.errors.CityName}
                 />
               </Grid>
               <Grid item xs={12} lg={6}>

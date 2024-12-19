@@ -16,7 +16,7 @@ const columns = [
     { field: 'type', headerName: 'Type' },
     { field: 'bookingsFee', headerName: 'Booking fee' },
     { field: 'bookingType', headerName: 'Type' },
-    { field: 'icon', headerName: 'Icon' ,renderCell: (value) => (<img src={value?value:iconn} style={{ width: 50, height: 50, borderRadius: '50%' }} alt='no image'/>)},
+    { field: 'icon', headerName: 'Icon' ,renderCell: (value) => (<img src={value?`http://127.0.0.1:8000/storage/${value}`:iconn} style={{ width: 50, height: 50, borderRadius: '50%' }} alt='no image'/>)},
 ];
 
 const handleCustomAction = (id) => {
