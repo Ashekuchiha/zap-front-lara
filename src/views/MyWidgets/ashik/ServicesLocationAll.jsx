@@ -11,23 +11,68 @@ import doc from '../../../../src/assets/icons/DefaultDocuments.png'
 const columns = [
     { field: 'organizationName', headerName: 'Organization Name' },
     { field: 'organizationWebsite', headerName: 'Organization Website' },
-    { field: 'organizationLogo', headerName: 'Organization Logo' , renderCell: (value) => (<img src={value?value:iconn} style={{ width: 50, height: 50, borderRadius: '50%' }} alt='no image'/>)},
-    { field: 'organizationBanner', headerName: 'Organization Banner', renderCell: (value) => (<img src={value?value:iconn} style={{ width: 50, height: 50, borderRadius: '50%' }} alt='no image'/>) },
+    // { field: 'organizationLogo', headerName: 'Organization Logo' , renderCell: (value) => (<img src={value?value:iconn} style={{ width: 50, height: 50, borderRadius: '50%' }} alt='no image'/>)},
+    { 
+        field: 'organizationLogo', 
+        headerName: 'Organization Logo', 
+        renderCell: (value) => {
+          // Remove '/storage/' from the value if it exists
+          const iconValue = value?.startsWith('/storage/') ? value.replace('/storage/', '') : value;
+          return (
+            <img 
+              src={iconValue ? `http://127.0.0.1:8000/storage/${iconValue}` : iconn} 
+              style={{ width: 50, height: 50, borderRadius: '50%' }} 
+              alt="no image" 
+            />
+          );
+        }
+      },
+    // { field: 'organizationBanner', headerName: 'Organization Banner', renderCell: (value) => (<img src={value?value:iconn} style={{ width: 50, height: 50, borderRadius: '50%' }} alt='no image'/>) },
+    { 
+        field: 'organizationBanner', 
+        headerName: 'Organization Banner', 
+        renderCell: (value) => {
+          // Remove '/storage/' from the value if it exists
+          const iconValue = value?.startsWith('/storage/') ? value.replace('/storage/', '') : value;
+          return (
+            <img 
+              src={iconValue ? `http://127.0.0.1:8000/storage/${iconValue}` : iconn} 
+              style={{ width: 50, height: 50, borderRadius: '50%' }} 
+              alt="no image" 
+            />
+          );
+        }
+      },
     { field: 'organizationBio', headerName: 'Organization Bio' },
     { field: 'organizationDescription', headerName: 'Organization Description' },
 
     { field: 'state', headerName: 'State' },
     { field: 'city', headerName: 'District' },
     { field: 'address', headerName: 'Address' },
-    { field: 'mapSelection', headerName: 'Longitude & Latitude', renderCell:(value)=>(<><p>{`Longitude : ${value[0]}`}</p> <p>{`Latitude : ${value[1]}`}</p></>) },
-
+    { field: 'mapSelection', headerName: 'Longitude & Latitude', renderCell:(value)=>(<><p>{`Longitude : ${value[0]}`}</p> {console.log(value,value[0],typeof(value))}<p>{`Latitude : ${value[1]}`}</p></>) },
     { field: 'ownerName', headerName: 'Owner Name' },
     { field: 'phoneNumber', headerName: 'Owner Contact Number' },
     { field: 'emergencyPhoneNumber', headerName: 'Assistant Name' },
     { field: 'employeeNumbers', headerName: 'Assistant Contact Number' },
     { field: 'tradeLicense', headerName: 'Trade License', renderCell: (value) => (<img src={value?value:iconn} style={{ width: 50, height: 50, borderRadius: '50%' }} alt='no image'/>) },
-    { field: 'organizationDocuments', headerName: 'Organization Documents', renderCell: (value) => (<img src={value?value:iconn} style={{ width: 50, height: 50, borderRadius: '50%' }} alt='no image'/>) },
-    { field: 'featured', headerName: 'Featured' },
+
+    // { field: 'organizationDocuments', headerName: 'Organization Documents', renderCell: (value) => (<img src={value?value:iconn} style={{ width: 50, height: 50, borderRadius: '50%' }} alt='no image'/>) },
+    { 
+        field: 'organizationDocuments', 
+        headerName: 'Organization Documents', 
+        renderCell: (value) => {
+          // Remove '/storage/' from the value if it exists
+          const iconValue = value?.startsWith('/storage/') ? value.replace('/storage/', '') : value;
+          return (
+            <img 
+              src={iconValue ? `http://127.0.0.1:8000/storage/${iconValue}` : iconn} 
+              style={{ width: 50, height: 50, borderRadius: '50%' }} 
+              alt="no image" 
+            />
+          );
+        }
+      },
+    { field: 'featured', headerName: 'Featured',renderCell:(value)=> (<><p>{value?'Yes':'No'}</p></>) },
    ];
 const handleCustomAction = (id) => {
     console.log('Custom action for id:', id);

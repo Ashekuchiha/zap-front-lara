@@ -101,6 +101,9 @@ export default function AddServicesLocationForm() {
         // Send FormData without manually setting headers
         const response = await fetch(url, {
           method: method,
+          headers: {
+            Accept: 'application/json',
+          },
           body: formData,
         });
     

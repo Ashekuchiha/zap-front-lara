@@ -121,71 +121,156 @@ export default function AddProviderForm() {
         },          
 
       validationSchema: validationSchema,
-      onSubmit: async (values) => {
-          const formData = new FormData();
+      // onSubmit: async (values) => {
+      //     const formData = new FormData();
         
-          // Append text and other basic fields
-          formData.append('name', values.name);
-          formData.append('email', values.email);
-          formData.append('assistantName', values.assistantName);
-          formData.append('assistantphoneNumber', values.assistantphoneNumber);
-          formData.append('qualification', values.qualification);
-          formData.append('phoneNumber', values.phoneNumber);
-          formData.append('organizationMobile', values.organizationMobile);
-          formData.append('password', values.password);
-          formData.append('service', values.service);
-          formData.append('specialized', values.specialized);
-          formData.append('experience', values.experience);
-          // formData.append('serviceOrganization', values.serviceOrganization);
-          values.serviceOrganization.forEach((item) => {
-            formData.append('serviceOrganization[]', item); // Append each item, you can also use a unique name like 'serviceOrganization' if you prefer
-        });
-          formData.append('profileImage', values.profileImage);
-          formData.append('certificate', values.certificate);
-          formData.append('status', values.status);
-          formData.append('amount', values.amount);
-          formData.append('type', values.type);
-          formData.append('featured', values.featured);
+      //     // Append text and other basic fields
+      //     formData.append('name', values.name);
+      //     formData.append('email', values.email);
+      //     formData.append('assistantName', values.assistantName);
+      //     formData.append('assistantphoneNumber', values.assistantphoneNumber);
+      //     formData.append('qualification', values.qualification);
+      //     formData.append('phoneNumber', values.phoneNumber);
+      //     formData.append('organizationMobile', values.organizationMobile);
+      //     formData.append('password', values.password);
+      //     formData.append('service', values.service);
+      //     formData.append('specialized', values.specialized);
+      //     formData.append('experience', values.experience);
+      //     // formData.append('serviceOrganization', values.serviceOrganization);
+      //     values.serviceOrganization.forEach((item) => {
+      //       formData.append('serviceOrganization', item); // Append each item, you can also use a unique name like 'serviceOrganization' if you prefer
+      //   });
+      //     formData.append('profileImage', values.profileImage);
+      //     formData.append('certificate', values.certificate);
+      //     formData.append('status', values.status);
+      //     formData.append('amount', values.amount);
+      //     formData.append('type', values.type);
+      //     formData.append('featured', values.featured ? "1" : "0");
+      //     if(id){formData.append('_method','PUT')}
 
-          // <Alert severity="error">{JSON.stringify(values)}</Alert>
-          console.log(JSON.stringify(values))
-          try {
-            const url = id
-              ? `${basic}/api/servicesproviders/${id}`
-              : `${basic}/api/servicesproviders`;
-            const method = id ? 'PUT' : 'POST';
+      //     // <Alert severity="error">{JSON.stringify(values)}</Alert>
+      //     console.log(JSON.stringify(values))
+      //     try {
+      //       const url = id
+      //         ? `${basic}/api/servicesproviders/${id}`
+      //         : `${basic}/api/servicesproviders`;
+      //       const method = 'POST';
 
-              const response = await fetch(url, {
-                method: method,
-                // headers:{
-                //   'Accept':'application/json'
-                // },
-                body: formData, // Let the browser handle the multipart/form-data
-              });
-              if (!response.ok) {
-                throw new Error('Failed to submit form');
-              }
+      //         const response = await fetch(url, {
+      //           method: method,
+      //           headers:{
+      //             'Accept':'application/json'
+      //           },
+      //           body: formData, // Let the browser handle the multipart/form-data
+      //         });
+      //         if (!response.ok) {
+      //           throw new Error('Failed to submit form');
+      //         }
             
-              const data = await response.json();
-              console.log('Success:', data);
-              Swal.fire({
+      //         const data = await response.json();
+      //         console.log('Success:', data);
+      //         Swal.fire({
+      //           icon: 'success',
+      //           title: id ? 'Service updated successfully!' : 'Form submitted successfully!',
+      //           showConfirmButton: false,
+      //           timer: 3000,  // Automatically close after 3 seconds
+      //         });
+      //         formik.resetForm(); 
+      //         navigate(`/admin/providers/all`);
+      //       } catch (error) {
+      //         console.error('Error:', error);
+      //         Swal.fire({
+      //           icon: 'error',
+      //           title: error,
+      //           showConfirmButton: false,
+      //           timer: 3000,  // Automatically close after 3 seconds
+      //         });
+      //       }
+      // },
+      onSubmit: async (values) => {
+        const formData = new FormData();
+    
+        // Append basic fields
+        formData.append('name', values.name);
+        formData.append('email', values.email);
+        formData.append('assistantName', values.assistantName);
+        formData.append('assistantphoneNumber', values.assistantphoneNumber);
+        formData.append('qualification', values.qualification);
+        formData.append('phoneNumber', values.phoneNumber);
+        formData.append('organizationMobile', values.organizationMobile);
+        formData.append('password', values.password);
+        formData.append('service', values.service);
+        formData.append('specialized', values.specialized);
+        formData.append('experience', values.experience);
+    
+        // Check if serviceOrganization is an array and append each item
+        if (Array.isArray(values.serviceOrganization)) {
+            values.serviceOrganization.forEach((item) => {
+                formData.append('serviceOrganization[]', item); // Append as array with '[]'
+            });
+        } else {
+            // In case it's a single value, append it as well
+            formData.append('serviceOrganization[]', values.serviceOrganization);
+        }
+    
+        // Append files if they exist
+        if (values.profileImage) {
+            formData.append('profileImage', values.profileImage);
+        }
+        if (values.certificate) {
+            formData.append('certificate', values.certificate);
+        }
+    
+        formData.append('status', values.status);
+        formData.append('amount', values.amount);
+        formData.append('type', values.type);
+        formData.append('featured', values.featured ? "1" : "0");
+    
+        if (id) {
+            formData.append('_method', 'PUT'); // For updating an existing service provider
+        }
+    
+        try {
+            const url = id
+                ? `${basic}/api/servicesproviders/${id}`
+                : `${basic}/api/servicesproviders`;
+            const method = id ? 'PUT' : 'POST';
+    
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'Accept': 'application/json',
+                },
+                body: formData, // Let the browser handle multipart/form-data
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to submit form');
+            }
+    
+            const data = await response.json();
+            console.log('Success:', data);
+    
+            Swal.fire({
                 icon: 'success',
                 title: id ? 'Service updated successfully!' : 'Form submitted successfully!',
                 showConfirmButton: false,
                 timer: 3000,  // Automatically close after 3 seconds
-              });
-              formik.resetForm(); 
-              navigate(`/admin/providers/all`);
-            } catch (error) {
-              console.error('Error:', error);
-              Swal.fire({
+            });
+    
+            formik.resetForm();
+            navigate(`/admin/providers/all`);
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire({
                 icon: 'error',
-                title: error,
+                title: 'Error: ' + error.message,
                 showConfirmButton: false,
                 timer: 3000,  // Automatically close after 3 seconds
-              });
-            }
-      },
+            });
+        }
+    },
+    
     });
 //edit
   useEffect(() => {
