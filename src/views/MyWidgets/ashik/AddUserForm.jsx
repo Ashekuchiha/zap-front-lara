@@ -28,8 +28,9 @@ const validationSchema = yup.object({
 
 export default function AddUserForm() {
   const [Cities, setcities] = useState([]); // Loading cities for fetching data
-  const basic = "https://fullzapmor-api.vercel.app";
-  const cbasic = "http://localhost:5000";
+  // const basic = "https://fullzapmor-api.vercel.app";
+  const basic = "http://127.0.0.1:8000";
+  // const cbasic = "http://localhost:5000";
   const navigate = useNavigate();
   const {id} = useParams();
   const [loading,setLoading] = useState(false);
@@ -57,10 +58,12 @@ export default function AddUserForm() {
           // formData.append('address', values.address);
           formData.append('profile', values.profile);
           formData.append('password', values.password);
+          if(id){formData.append('_method','PUT')}
+
           alert(formData)
           try {
           const url = id ? `${basic}/api/appusers/${id}`:`${basic}/api/appusers`;
-          const method = id ? `PUT` : `POST`;
+          const method = `POST`;
             const response = await fetch(url, {
               method: method,
               headers:{
@@ -101,14 +104,14 @@ export default function AddUserForm() {
         .then((response) => response.json())
         .then((data) =>{
           formik.setValues({
-            name: data.name || '',
-            email: data.email || '',
-            phone: data.phone || '',
-            dob: data.dob || '',
-            city: data.city || '',
-            // address: data.address || '',
-            profile: data.profile || '',
-            // password: data.password || '',
+            name: data.data.name || '',
+            email: data.data.email || '',
+            phone: data.data.phone || '',
+            dob: data.data.dob || '',
+            city: data.data.city || '',
+            // address: data.data.address || '',
+            profile: data.data.profile || '',
+            // password: data.data.password || '',
           });
           setLoading(false);
         })

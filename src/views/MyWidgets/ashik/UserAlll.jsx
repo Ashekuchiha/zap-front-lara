@@ -13,7 +13,22 @@ const columns = [
     { field: 'phone', headerName: 'Phone' },
     { field: 'dob', headerName: 'Date of birth'},
     { field: 'city', headerName: 'District'},
-    { field: 'profile', headerName: 'Profile', renderCell: (value) => (<img src={value?value:iconn} style={{ width: 50, height: 50, borderRadius: '50%' }} alt='no image'/>)},
+    // { field: 'profile', headerName: 'Profile', renderCell: (value) => (<img src={value?value:iconn} style={{ width: 50, height: 50, borderRadius: '50%' }} alt='no image'/>)},
+    { 
+        field: 'profile', 
+        headerName: 'Profile', 
+        renderCell: (value) => {
+          // Remove '/storage/' from the value if it exists
+          const iconValue = value?.startsWith('/storage/') ? value.replace('/storage/', '') : value;
+          return (
+            <img 
+              src={iconValue ? `http://127.0.0.1:8000/storage/${iconValue}` : iconn} 
+              style={{ width: 50, height: 50, borderRadius: '50%' }} 
+              alt="no image" 
+            />
+          );
+        }
+      }
 ];
 
 const handleCustomAction = (id) => {
@@ -26,7 +41,8 @@ const UserAll = () => (
         <ReusablePaginationTable
         title="Services List"
         columns={columns}
-        apiUrl="https://fullzapmor-api.vercel.app/api/appusers"
+        // apiUrl="https://fullzapmor-api.vercel.app/api/appusers"
+        apiUrl="http://127.0.0.1:8000/api/appusers"
         // apiUrl="http://localhost:5000/api/appusers"
         enableSearch={true}
         enableSort={true}

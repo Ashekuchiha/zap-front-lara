@@ -41,99 +41,6 @@ export default function AddServicesLocationForm() {
   const [CityNames, setCityNames] = useState([]);
   const [selectedState, setSelectedState] = useState('');
 
-  // const formik = useFormik({
-  //   initialValues: {
-  //     organizationName: '',
-  //     ownerName: '',
-  //     state: '',
-  //     city: '',
-  //     address: '',
-  //     mapSelection: [], // Expecting [latitude, longitude]
-  //     organizationBio: '',
-  //     organizationDescription: '',
-  //     organizationWebsite: '',
-  //     phoneNumber: '',
-  //     emergencyPhoneNumber: '',
-  //     employeeNumbers: '',
-  //     organizationLogo: null, // For file uploads, initialize as null
-  //     organizationBanner: null, // For file uploads, initialize as null
-  //     tradeLicense: null, // For file uploads, initialize as null
-  //     organizationDocuments: null, // For multiple file uploads, initialize as an empty array
-  //     featured:false,
-  //   },
-    
-  //   // validationSchema: validationSchema,
-
-  //   onSubmit: async (values) => {
-  //     const formData = new FormData();
-      
-  //     // Append each field to the FormData
-  //     formData.append('organizationName', values.organizationName);
-  //     formData.append('ownerName', values.ownerName);
-  //     formData.append('state', values.state);
-  //     formData.append('city', values.city);
-  //     formData.append('address', values.address);
-    
-  //     // Append arrays like mapSelection by converting them to JSON
-  //     formData.append('mapSelection', JSON.stringify(values.mapSelection));
-    
-  //     formData.append('organizationBio', values.organizationBio);
-  //     formData.append('organizationDescription', values.organizationDescription);
-  //     formData.append('organizationWebsite', values.organizationWebsite);
-  //     formData.append('phoneNumber', values.phoneNumber);
-  //     formData.append('emergencyPhoneNumber', values.emergencyPhoneNumber);
-  //     formData.append('employeeNumbers', values.employeeNumbers);
-  //     formData.append('organizationLogo', values.organizationLogo);
-  //     formData.append('organizationBanner', values.organizationBanner);
-  //     formData.append('tradeLicense', values.tradeLicense);
-  //     formData.append('organizationDocuments', values.organizationDocuments);
-  //     formData.append('featured', values.featured);
-
-  //     // alert(JSON.stringify(values),)
-  //     console.log(JSON.stringify(values))
-  //     try {
-  //       const url = id
-  //         ? `${basic}/api/serviceorganizations/${id}`
-  //         : `${basic}/api/serviceorganizations`;
-  //       const method = id ? 'PUT' : 'POST';
-    
-  //       // Send FormData without manually setting headers
-  //       const response = await fetch(url, {
-  //         method: method,
-  //         body: formData,
-  //       });
-    
-  //       if (!response.ok) {
-  //         throw new Error('Failed to submit form');
-  //       }
-    
-  //       const data = await response.json();
-  //       console.log('Success:', data);
-  //       // alert(id ? 'Service updated successfully!' : 'Form submitted successfully!');
-  //       Swal.fire({
-  //         icon: 'success',
-  //         title: id ? 'Service updated successfully!' : 'Form submitted successfully!',
-  //         showConfirmButton: false,
-  //         timer: 3000,  // Automatically close after 3 seconds
-  //       });
-  //       formik.resetForm(); // Reset form after successful submission
-  //       navigate(`/admin/serviceslocation/all`);
-  //     } catch (error) {
-  //       console.error('Error:', error);
-  //       // alert(id?'Faild to update the form':'Failed to submit the form.');
-  //       // <Alert>{id?'Faild to update the form':'Failed to submit the form.'}</Alert>
-  //       Swal.fire({
-  //         icon: 'error',
-  //         title: error,
-  //         showConfirmButton: false,
-  //         timer: 3000,  // Automatically close after 3 seconds
-  //       });
-  //     }
-  //   },
-    
-
-  // });
-
   const formik = useFormik({
     initialValues: {
       organizationName: '',
@@ -148,79 +55,89 @@ export default function AddServicesLocationForm() {
       phoneNumber: '',
       emergencyPhoneNumber: '',
       employeeNumbers: '',
-      organizationLogo: null, // For file uploads
-      organizationBanner: null, // For file uploads
-      tradeLicense: null, // For file uploads
-      organizationDocuments: null, // For multiple file uploads
-      featured: false,
+      organizationLogo: null, // For file uploads, initialize as null
+      organizationBanner: null, // For file uploads, initialize as null
+      tradeLicense: null, // For file uploads, initialize as null
+      organizationDocuments: null, // For multiple file uploads, initialize as an empty array
+      featured:false,
     },
+    
+    // validationSchema: validationSchema,
 
     onSubmit: async (values) => {
       const formData = new FormData();
+      
+      // Append each field to the FormData
+      formData.append('organizationName', values.organizationName);
+      formData.append('ownerName', values.ownerName);
+      formData.append('state', values.state);
+      formData.append('city', values.city);
+      formData.append('address', values.address);
+    
+      // Append arrays like mapSelection by converting them to JSON
+      formData.append('mapSelection', JSON.stringify(values.mapSelection));
+    
+      formData.append('organizationBio', values.organizationBio);
+      formData.append('organizationDescription', values.organizationDescription);
+      formData.append('organizationWebsite', values.organizationWebsite);
+      formData.append('phoneNumber', values.phoneNumber);
+      formData.append('emergencyPhoneNumber', values.emergencyPhoneNumber);
+      formData.append('employeeNumbers', parseInt( values.employeeNumbers));
+      formData.append('organizationLogo', values.organizationLogo);
+      formData.append('organizationBanner', values.organizationBanner);
+      formData.append('tradeLicense', values.tradeLicense);
+      formData.append('organizationDocuments', values.organizationDocuments);
+      formData.append('featured', values.featured ? "1" : "0");
+      if(id){formData.append('_method','PUT')}
 
-      // Append each field to FormData
-      Object.keys(values).forEach((key) => {
-        if (Array.isArray(values[key])) {
-          formData.append(key, JSON.stringify(values[key])); // Handle arrays
-        } else if (key === 'organizationDocuments' && values[key]) {
-          // Append multiple files for 'organizationDocuments'
-          Array.from(values[key]).forEach((file, index) =>
-            formData.append(`organizationDocuments[${index}]`, file)
-          );
-        } else {
-          formData.append(key, values[key]);
-        }
-      });
-
-      // Debugging the FormData content
-      for (let pair of formData.entries()) {
-        console.log(`${pair[0]}: ${pair[1]}`);
-      }
-
+      // alert(JSON.stringify(values),)
+      console.log(JSON.stringify(values))
       try {
         const url = id
           ? `${basic}/api/serviceorganizations/${id}`
           : `${basic}/api/serviceorganizations`;
-        const method = id ? 'PUT' : 'POST';
-
+        const method = 'POST';
+    
+        // Send FormData without manually setting headers
         const response = await fetch(url, {
-          method,
+          method: method,
           body: formData,
         });
-
+    
         if (!response.ok) {
-          const errorData = await response.json();
-          console.error('Error:', errorData);
-          throw new Error(errorData.message || 'Form submission failed');
+          throw new Error('Failed to submit form');
         }
-
+    
         const data = await response.json();
+        console.log('Success:', data);
+        // alert(id ? 'Service updated successfully!' : 'Form submitted successfully!');
         Swal.fire({
           icon: 'success',
-          title: id
-            ? 'Service updated successfully!'
-            : 'Form submitted successfully!',
+          title: id ? 'Service updated successfully!' : 'Form submitted successfully!',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 3000,  // Automatically close after 3 seconds
         });
-
-        formik.resetForm();
+        formik.resetForm(); // Reset form after successful submission
         navigate(`/admin/serviceslocation/all`);
       } catch (error) {
-        console.error('Error:', error.message);
+        console.error('Error:', error);
+        // alert(id?'Faild to update the form':'Failed to submit the form.');
+        // <Alert>{id?'Faild to update the form':'Failed to submit the form.'}</Alert>
         Swal.fire({
           icon: 'error',
-          title: 'Submission failed',
-          text: error.message,
-          showConfirmButton: true,
+          title: error,
+          showConfirmButton: false,
+          timer: 3000,  // Automatically close after 3 seconds
         });
       }
     },
+    
+
   });
 
+
+
   //edit
-  
-  
   useEffect(() => {
     if (id) {
       setLoading(true); // Loading while fetching data

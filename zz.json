@@ -1,17 +1,55 @@
 {
-  "success": true,
-  "data": {
-      "data": [
-          {
-              "id": "6718e8d4e1a3605576e63def",
-              "cityName": "Port Blair",
-              "StateName": "Andaman and Nicobar Islands",
-              "pin": "2589",
-              "longitude": "92.6586",
-              "latitude": "11.6234"
-          }
-      ],
-      "total": 44
-  },
-  "message": "city locations retrieved successfully."
+    "success": true,
+    "data": {
+        "current_page": 1,
+        "data": [
+            {
+                "id": "672a4765202bc52cec99e7d6",
+                "name": "son",
+                "email": "s@s.s",
+                "phone": "12345678901",
+                "dob": "",
+                "city": "Chennai",
+                "profile": "https://res.cloudinary.com/deiitkhjk/image/upload/v1730824036/uploads/uru5iil7mumheiptwwpj.jpg",
+                "createdAt": "2024-11-05T16:27:17.262Z",
+                "updatedAt": "2024-12-19T21:20:56.514Z"
+            },
+            {
+                "id": "672a4d6b28cf62492ffdc688",
+                "name": "kona",
+                "email": "k@kk.k",
+                "phone": "01234567890",
+                "profile": "https://res.cloudinary.com/deiitkhjk/image/upload/v1730825642/appUsersProfile/1730825642369_IMG_20221221_174527.jpg",
+                "createdAt": "2024-11-05T16:52:59.848Z",
+                "updatedAt": "2024-11-05T16:54:02.815Z"
+            },
+            {
+                "id": "672b05cbc7aaac2baee461e4",
+                "name": "hihi",
+                "email": "hi@h.h",
+                "phone": "12345678901",
+                "profile": "https://res.cloudinary.com/deiitkhjk/image/upload/v1730872779/appUsersProfile/1730872779134_lena.jpg",
+                "createdAt": "2024-11-06T05:59:39.793Z",
+                "updatedAt": "2024-11-06T05:59:39.793Z"
+            }
+            
+        ],
+        "total": 7,
+        "per_page": 20,
+        "last_page": 1,
+        "from": 1,
+        "to": 7,
+        "first_page_url": "http://fullzapmor-api.vercel.app/api/appusers?page=1&per_page=20",
+        "last_page_url": "http://fullzapmor-api.vercel.app/api/appusers?page=1&per_page=20",
+        "next_page_url": null,
+        "prev_page_url": null,
+        "links": [
+            {
+                "url": "http://fullzapmor-api.vercel.app/api/appusers?page=1&per_page=20",
+                "label": "1",
+                "active": true
+            }
+        ]
+    },
+    "message": "Users retrieved successfully."
 }
