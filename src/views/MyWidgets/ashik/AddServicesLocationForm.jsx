@@ -260,7 +260,7 @@ export default function AddServicesLocationForm() {
     // Fetch the service options from the API
     const fetchStateName = async () => {
         try {
-            const response = await axios.get(`https://fullzapmor-api.vercel.app/api/states/all`);
+            const response = await axios.get(`${basic}/api/states/all`);
             setStateNames(response.data.data.data); // Assuming the data is an array of service objects
             console.log(response)
         } catch (error) {
@@ -276,7 +276,7 @@ export default function AddServicesLocationForm() {
     // Fetch the service options from the API
     const fetchStateName = async () => {
         try {
-            const response = await axios.get(`https://fullzapmor-api.vercel.app/api/cities/${selectedState?selectedState:'all'}`);
+            const response = await axios.get(`${basic}/api/cities/${selectedState?selectedState:'all'}`);
             setCityNames(response.data.data.data); // Assuming the data is an array of service objects
             console.log(response)
             console.log(response.data)
@@ -483,8 +483,8 @@ console.log(selectedState)
                     onChange={formik.handleChange}
                     >
                        {CityNames.map(city => (
-                    <MenuItem key={city.id} value={city.cityName}>
-                        {city.cityName}
+                    <MenuItem key={city.id} value={city.CityName}>
+                        {city.CityName}
                     </MenuItem>
                 ))}
                     </CustomSelect>

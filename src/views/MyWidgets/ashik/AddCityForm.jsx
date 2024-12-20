@@ -132,7 +132,7 @@ export default function AddCityForm() {
     // Fetch the service options from the API
     const fetchStateName = async () => {
         try {
-            const response = await axios.get(`${basic}/api/states`);
+            const response = await axios.get(`${basic}/api/states/all`);
             setStateNames(response.data.data.data); // Assuming the data is an array of service objects
             console.log(response)
         } catch (error) {

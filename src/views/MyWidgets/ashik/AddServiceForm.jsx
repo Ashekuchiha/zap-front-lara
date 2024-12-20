@@ -42,6 +42,8 @@ export default function AddServiceForm() {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
+      console.log(values)
+      console.log(values.name)
       const formData = new FormData();
       formData.append('name', values.name);
       formData.append('description', values.description);
@@ -52,17 +54,17 @@ export default function AddServiceForm() {
       formData.append('type', values.type);
       formData.append('bookingsFee', values.bookingsFee);
       formData.append('bookingType', values.bookingType);
-      // alert(JSON.stringify(values),)
-      console.log(JSON.stringify(values))
-      // navigate(`/admin/services/all`);
-      try {
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }      try {
         const url = id
           ? `${basic}/api/services/${id}` // Update service if id exists
           : `${basic}/api/services`; // Add new service otherwise
 
         const method = id ? 'PUT' : 'POST';  // Change method based on the presence of id
-
-        const response = await fetch(url, {
+        for (let [key, value] of formData.entries()) {
+          console.log(`${key}: ${value}`);
+        }        const response = await fetch(url, {
           method: method,
           headers: {
             Accept: 'application/json',
